@@ -43,7 +43,9 @@ class NewsViewModel: ObservableObject {
     
     func loadInitial() {
         initialLoadingFinished = false
-        fetchArticles(reset: true)
+        if articles.isEmpty {
+            fetchArticles(reset: true)
+        }
         fetchNavigationBlocks()
     }
     

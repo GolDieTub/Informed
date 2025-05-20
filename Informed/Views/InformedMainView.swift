@@ -104,7 +104,9 @@ struct InformedMainView: View {
             }
         }
         .onAppear {
-            viewModel.loadInitial()
+            if !viewModel.initialLoadingFinished {
+                viewModel.loadInitial()
+            }
         }
         .preferredColorScheme(.light)
     }
@@ -174,7 +176,9 @@ struct InformedMainView: View {
                 .frame(maxWidth: .infinity)
             
             Button {
-                viewModel.loadInitial()
+                if !viewModel.initialLoadingFinished {
+                    viewModel.loadInitial()
+                }
             } label: {
                 ZStack {
                     Text("Refresh")
@@ -271,7 +275,7 @@ struct InformedMainView: View {
         }
         .coordinateSpace(name: "scroll")
         .refreshable {
-            viewModel.loadInitial()
+            viewModel.fetchArticles(reset: true)
         }
     }
     
